@@ -103,23 +103,23 @@ These class methods enable you to:
  
 ## Artisan Commands
 
-### `maintenance:schedule`
+### `php artisan maintenance:schedule`
 This command will walk you through the process of creating a new maintenance window.  You'll be prompted for information like when the maintenance will start, when users should see a notification about the upcoming maintenance, etc.
 
-### `maintenance:down`
+### `php artisan maintenance:down`
 **This command will immediately move your application into maintenance mode!**  When running this command the package will either move your next scheduled maintenance window into an active state or it will create a new record if there isn't one already scheduled.
 
 #### Options when creating a new record:
 - `--bypass-secret=` Set the bypass secret for this maintenance window
 - `--redirect-to=` Configure a redirect for your users while the application is in maintenance mode
 
-### `maintenance:up`
+### `php artisan maintenance:up`
 This command will move your application out of maintenance mode
 
-### `maintenance:upcoming`
+### `php artisan maintenance:upcoming`
 This command will list all of your future maintenance windows in a table format
 
-### `maintenance:cancel {id}`
+### `php artisan maintenance:cancel {id}`
 This command will delete a scheduled maintenance window
 
 ## Events
