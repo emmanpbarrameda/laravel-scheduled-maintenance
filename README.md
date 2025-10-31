@@ -1,4 +1,5 @@
 # Laravel Scheduled Maintenance
+## Fork of churchportal/laravel-scheduled-maintenance updated for Laravel 8/9/10/11/12 and PHP 8.0+.
 
 This package enables you to schedule maintenance windows for your Laravel application, make it easier to notify users about upcoming maintenance, and also customize the user experience for your users while the application is down for maintenance.
 
