@@ -11,7 +11,7 @@ It's built in a similar fashion to laravel's preexisting `down` and `up` command
 Install the package via composer:
 
 ```bash
-composer require churchportal/laravel-scheduled-maintenance
+composer require emmanpbarrameda/laravel-scheduled-maintenance:dev-main
 ```
 Publish the package assets (this will publish the config file, 1 migration, and an example blade view):
 ```bash
