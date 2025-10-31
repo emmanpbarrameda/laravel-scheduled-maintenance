@@ -1,63 +1,66 @@
 {
-    "name": "churchportal/laravel-scheduled-maintenance",
-    "description": "Schedule maintenance windows and customize the user experience while your Laravel application is down",
-    "keywords": [
-        "churchportal",
-        "laravel",
-        "laravel-scheduled-maintenance",
-        "laravel maintenance"
-    ],
-    "homepage": "https://github.com/churchportal/laravel-scheduled-maintenance",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "James Burrow",
-            "email": "james.burrow@churchportal.com",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": "^8.0",
-        "illuminate/contracts": "^8.37",
-        "spatie/laravel-package-tools": "^1.4.3"
+  "name": "emmanpbarrameda/laravel-scheduled-maintenance",
+  "description": "Fork of churchportal/laravel-scheduled-maintenance updated for Laravel 8/9/10/11/12 and PHP 8.0+.",
+  "keywords": [
+    "scheduled-maintenance",
+    "laravel",
+    "maintenance-mode"
+  ],
+  "homepage": "https://github.com/emmanpbarrameda/laravel-scheduled-maintenance",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "James Burrow",
+      "email": "james.burrow@churchportal.com",
+      "role": "Original Author"
     },
-    "require-dev": {
-        "brianium/paratest": "^6.2",
-        "nunomaduro/collision": "^5.3",
-        "orchestra/testbench": "^6.15",
-        "phpunit/phpunit": "^9.3",
-        "spatie/laravel-ray": "^1.9",
-        "vimeo/psalm": "^4.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "Churchportal\\ScheduledMaintenance\\": "src",
-            "Churchportal\\ScheduledMaintenance\\Database\\Factories\\": "database/factories"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Churchportal\\ScheduledMaintenance\\Tests\\": "tests"
-        }
-    },
-    "scripts": {
-        "psalm": "vendor/bin/psalm",
-        "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Churchportal\\ScheduledMaintenance\\ScheduledMaintenanceServiceProvider"
-            ],
-            "aliases": {
-                "ScheduledMaintenance": "Churchportal\\ScheduledMaintenance\\ScheduledMaintenanceFacade"
-            }
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    {
+      "name": "Emman P. Barrameda",
+      "role": "Maintainer (Laravel 8–12 fork)"
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "illuminate/contracts": "^8.37|^9.0|^10.0|^11.0|^12.0",
+    "spatie/laravel-package-tools": "^1.4.3|^1.16|^1.92"
+  },
+  "require-dev": {
+    "brianium/paratest": "^6.2",
+    "nunomaduro/collision": "^5.3|^6.0|^7.0",
+    "orchestra/testbench": "^6.15|^7.0|^8.0|^9.0|^10.0",
+    "phpunit/phpunit": "^9.3|^10.0|^11.0",
+    "spatie/laravel-ray": "^1.9",
+    "vimeo/psalm": "^4.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Churchportal\\ScheduledMaintenance\\": "src/",
+      "Churchportal\\ScheduledMaintenance\\Database\\Factories\\": "database/factories/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Churchportal\\ScheduledMaintenance\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Churchportal\\ScheduledMaintenance\\ScheduledMaintenanceServiceProvider"
+      ],
+      "aliases": {
+        "ScheduledMaintenance": "Churchportal\\ScheduledMaintenance\\ScheduledMaintenanceFacade"
+      }
+    }
+  },
+  "scripts": {
+    "psalm": "vendor/bin/psalm",
+    "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
