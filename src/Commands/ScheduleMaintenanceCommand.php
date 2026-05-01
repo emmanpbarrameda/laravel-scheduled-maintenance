@@ -3,9 +3,11 @@
 namespace Emmanpbarrameda\ScheduledMaintenance\Commands;
 
 use Emmanpbarrameda\ScheduledMaintenance\Events\MaintenanceScheduled;
+use Emmanpbarrameda\ScheduledMaintenance\Jobs\ActivateMaintenanceJob;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 class ScheduleMaintenanceCommand extends Command
 {
@@ -44,6 +46,8 @@ class ScheduleMaintenanceCommand extends Command
         ]);
 
         event(new MaintenanceScheduled($scheduled));
+
+        ActivateMaintenanceJob::dispatch()->delay(Carbon::parse($scheduled->starts_at));
 
         $this->info('Maintenance scheduled!');
 
