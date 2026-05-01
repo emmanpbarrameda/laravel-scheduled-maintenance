@@ -2,6 +2,7 @@
 
 namespace Emmanpbarrameda\ScheduledMaintenance\Jobs;
 
+use Emmanpbarrameda\ScheduledMaintenance\Events\MaintenanceStarted;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -18,6 +19,19 @@ class ActivateMaintenanceJob implements ShouldQueue
             return;
         }
 
-        app('maintenance')->down();
+        $model = new (config('scheduled-maintenance.model'));
+        $due = $model
+            ->where('is_active', false)
+            ->where('starts_at', '<=', now())
+            ->whereNull('deleted_at')
+            ->first();
+
+        if (! $due) {
+            return;
+        }
+
+        $due->update(['is_active' => true]);
+
+        event(new MaintenanceStarted($due, true));
     }
 }

@@ -150,6 +150,16 @@ Scheduled maintenance automatically dispatches a Laravel queued job that activat
 php artisan queue:work
 ```
 
+> **Note:** Make sure your `QUEUE_CONNECTION` in `.env` is **not** set to `sync`, otherwise delayed jobs will fire immediately instead of at the scheduled time.
+> ```env
+> QUEUE_CONNECTION=redis  # or database
+> ```
+
+> **Note:** Make sure your server timezone matches the times you schedule. Check `config/app.php` → `timezone` and ensure it matches your intended schedule times.
+> ```php
+> 'timezone' => env('APP_TIMEZONE', 'Asia/Manila'),
+> ```
+
 ---
 
 # The `app('maintenance')` Singleton

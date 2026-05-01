@@ -4,6 +4,7 @@ namespace Emmanpbarrameda\ScheduledMaintenance\Commands;
 
 use Emmanpbarrameda\ScheduledMaintenance\Events\MaintenanceScheduled;
 use Emmanpbarrameda\ScheduledMaintenance\Jobs\ActivateMaintenanceJob;
+use Emmanpbarrameda\ScheduledMaintenance\Jobs\DeactivateMaintenanceJob;
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;
 use Illuminate\Support\Carbon;
@@ -80,8 +81,10 @@ class ScheduleMaintenanceCommand extends Command
         event(new MaintenanceScheduled($scheduled));
 
         ActivateMaintenanceJob::dispatch()->delay(Carbon::parse($scheduled->starts_at));
+        DeactivateMaintenanceJob::dispatch($scheduled->id)->delay(Carbon::parse($scheduled->ends_at));
 
         $this->info('Maintenance scheduled!');
+        $this->info('Bypass URL: ' . url($scheduled->bypassSecret()));
 
         return self::SUCCESS;
     }
