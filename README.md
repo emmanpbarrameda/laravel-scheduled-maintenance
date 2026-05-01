@@ -11,7 +11,7 @@ A modern Laravel package to schedule maintenance windows, notify users about upc
 | Requirement | Version |
 |-------------|---------|
 | PHP | ^8.1 (up to latest version) |
-| | Laravel | ^10.0 \| ^11.0 \| ^12.0 |
+| Laravel | ^10.0 \| ^11.0 \| ^12.0 |
 
 ---
 
