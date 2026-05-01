@@ -19,7 +19,7 @@ A modern Laravel package for scheduling app maintenance, showing upcoming downti
 
 ## Step 1
 ```bash
-composer require emmanpbarrameda/laravel-scheduled-maintenance:^1.0.2
+composer require emmanpbarrameda/laravel-scheduled-maintenance:^1.0.3
 ```
 
 ## Step 2
@@ -79,28 +79,72 @@ return [
 
 # Artisan Commands
 
+Quickly schedule a maintenance:
+
+```bash
+php artisan maintenance:schedule --title="Server Update" --starts-at="2026-05-08 21:00:00" --ends-at="2026-05-08 23:00:00" --notify-at="2026-05-08 20:00:00"
+```
+
+This creates a maintenance window titled **Server Update**, starts maintenance at **2026-05-08 9:00 PM**, ends it at **11:00 PM**, and shows users an upcoming maintenance notice starting at **8:00 PM**.
+
+## `maintenance:schedule` Command Options
+
+```bash
+php artisan maintenance:schedule --title="Server Update" --description="We will be performing server upgrades." --starts-at="2026-05-08 21:00:00" --ends-at="2026-05-08 23:00:00" --notify-at="2026-05-08 20:00:00" --bypass-secret="mysecret" --redirect-to="/maintenance" --status-code=503
+```
+
+| Option | Description |
+|--------|-------------|
+| `--title` | Title of the maintenance window |
+| `--description` | Description shown on the maintenance page |
+| `--starts-at` | Date and time when maintenance starts |
+| `--ends-at` | Date and time when maintenance ends |
+| `--notify-at` | Date and time when users should start seeing the upcoming maintenance notice |
+| `--bypass-secret` | Secret URL path used to bypass maintenance mode (can be auto-generated) |
+| `--redirect-to` | URL to redirect users to during maintenance |
+| `--status-code` | HTTP status code returned during maintenance, default is `503` |
+
+If an option is not provided, the command will ask for it interactively.
+
+## `maintenance:down` Options
+
+```bash
+php artisan maintenance:down --bypass-secret=mysecret --redirect-to=/maintenance
+```
+
+| Option | Description |
+|--------|-------------|
+| `--bypass-secret` | Secret URL path used to bypass maintenance mode |
+| `--redirect-to` | URL to redirect users to while the app is down |
+
+## Other Commands
+
 | Command | Description |
 |---------|-------------|
-| `php artisan maintenance:schedule` | Interactively schedule a new maintenance window |
+| `php artisan maintenance:schedule` | Schedule a new maintenance window interactively or using options |
 | `php artisan maintenance:down` | Immediately put the app into maintenance mode |
 | `php artisan maintenance:up` | Bring the app out of maintenance mode |
 | `php artisan maintenance:upcoming` | List all upcoming maintenance windows |
 | `php artisan maintenance:cancel {id}` | Cancel a scheduled maintenance window |
 | `php artisan maintenance:activate` | Manually activate a maintenance window |
 
-### `maintenance:down` Options
+---
 
-```bash
-php artisan maintenance:down --bypass-secret=mysecret --redirect-to=/maintenance
+# How to bypass maintenance page
+Simply navigate on browser like:
+
+```url
+http://127.0.0.1:8000/random-secret-123
 ```
+
+> Bypass cookie is valid 12 hours. Only users with the bypass cookie can access the app while it is down.
 
 ---
 
 # Auto-Maintenance Activation via Queue
+Scheduled maintenance automatically dispatches a Laravel queued job that activates the scheduled maintenance time at the `starts_at` column.
 
-Scheduled maintenance windows dispatch a delayed job that activates maintenance at `starts_at` column.
-
-<b>Make sure a queue worker is running via:</b>
+<b>❗ Make sure a laravel queue worker is running via:</b>
 
 ```bash
 php artisan queue:work

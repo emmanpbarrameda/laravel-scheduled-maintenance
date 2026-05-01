@@ -19,7 +19,6 @@ class ScheduledMaintenanceServiceProvider extends PackageServiceProvider
             ->name('laravel-scheduled-maintenance')
             ->hasConfigFile()
             ->hasViews()
-            ->hasAssets()
             ->hasMigration('create_scheduled_maintenance_table')
             ->hasCommands([
                 ScheduleMaintenanceCommand::class,
@@ -34,5 +33,13 @@ class ScheduledMaintenanceServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->singleton('maintenance', ScheduledMaintenance::class);
+    }
+
+
+    public function packageBooted(): void
+    {
+        $this->publishes([
+            __DIR__ . '/../public' => public_path('vendor/scheduled-maintenance'),
+        ], 'laravel-scheduled-maintenance-assets');
     }
 }
