@@ -1,8 +1,8 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance\Tests;
+namespace Emmanpbarrameda\ScheduledMaintenance\Tests;
 
-use Churchportal\ScheduledMaintenance\ScheduledMaintenanceServiceProvider;
+use Emmanpbarrameda\ScheduledMaintenance\ScheduledMaintenanceServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Churchportal\\ScheduledMaintenance\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Emmanpbarrameda\\ScheduledMaintenance\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 

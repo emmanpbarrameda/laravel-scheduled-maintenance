@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Churchportal\ScheduledMaintenance\Models;
+namespace Emmanpbarrameda\ScheduledMaintenance\Models;
 
 interface ScheduledMaintenanceInterface
 {

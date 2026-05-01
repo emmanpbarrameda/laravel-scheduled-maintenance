@@ -1,11 +1,13 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance\Tests;
+namespace Emmanpbarrameda\ScheduledMaintenance\Tests;
+
+use PHPUnit\Framework\Attributes\Test;
 
 class ExampleTest extends TestCase
 {
-    /** @test */
-    public function true_is_true()
+    #[Test]
+    public function true_is_true(): void
     {
         $this->assertTrue(true);
     }

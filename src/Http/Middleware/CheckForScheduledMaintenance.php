@@ -1,63 +1,88 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance\Http\Middleware;
+namespace Emmanpbarrameda\ScheduledMaintenance\Http\Middleware;
 
-use Churchportal\ScheduledMaintenance\ScheduledMaintenanceModeBypassCookie;
 use Closure;
-use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
+use Emmanpbarrameda\ScheduledMaintenance\ScheduledMaintenanceModeBypassCookie;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class CheckForScheduledMaintenance extends PreventRequestsDuringMaintenance
+class CheckForScheduledMaintenance
 {
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-        if (app('maintenance')->isDown()) {
-            $bypassSecret = app('maintenance')->current()->bypassSecret();
-            $statusCode = app('maintenance')->current()->statusCode();
+        $maintenance = app('maintenance');
 
-            if ($bypassSecret && $request->path() === $bypassSecret) {
-                return $this->bypassResponse($bypassSecret);
-            }
-
-            $this->except = config('scheduled-maintenance.except', []);
-
-            if ($this->hasValidBypassCookie($request, ['bypass_secret' => $bypassSecret]) || $this->inExceptArray($request)) {
-                return $next($request);
-            }
-
-            $redirectTo = app('maintenance')->current()->redirectTo();
-
-            if ($redirectTo) {
-                $path = $redirectTo === '/' ? $redirectTo: trim($redirectTo, '/');
-
-                if ($request->path() !== $path) {
-                    return redirect($path)->setStatusCode($statusCode);
-                }
-            }
-
-            return response(view(config('scheduled-maintenance.view'))->render())->setStatusCode($statusCode);
-        } elseif ($request->hasCookie(config('scheduled-maintenance.bypass_cookie_name'))) {
+        if (! $maintenance->isDown()) {
             $response = $next($request);
 
-            return $response->withCookie(ScheduledMaintenanceModeBypassCookie::remove());
+            if ($request->hasCookie(config('scheduled-maintenance.bypass_cookie_name'))) {
+                return $response->withCookie(ScheduledMaintenanceModeBypassCookie::remove());
+            }
+
+            return $response;
         }
 
-        return $next($request);
+        $current = $maintenance->current();
+
+        if (! $current) {
+            return $next($request);
+        }
+
+        $bypassSecret = $current->bypassSecret();
+        $statusCode = $current->statusCode();
+
+        if ($bypassSecret && $request->path() === $bypassSecret) {
+            return $this->bypassResponse($bypassSecret);
+        }
+
+        if ($this->hasValidBypassCookie($request, $bypassSecret) || $this->isExcepted($request)) {
+            return $next($request);
+        }
+
+        $redirectTo = $current->redirectTo();
+
+        if ($redirectTo) {
+            $path = $redirectTo === '/' ? '/' : trim($redirectTo, '/');
+
+            if ($request->path() !== $path) {
+                return redirect($path)->setStatusCode($statusCode);
+            }
+        }
+
+        return response()
+            ->view(config('scheduled-maintenance.view', 'scheduled-maintenance::down'), [], $statusCode);
     }
 
-    protected function bypassResponse(string $secret)
+    protected function bypassResponse(string $secret): Response
     {
-        return redirect('/')->withCookie(
-            ScheduledMaintenanceModeBypassCookie::create($secret)
-        );
+        return redirect('/')
+            ->withCookie(ScheduledMaintenanceModeBypassCookie::create($secret));
     }
 
-    protected function hasValidBypassCookie($request, array $data)
+    protected function hasValidBypassCookie(Request $request, ?string $bypassSecret): bool
     {
-        return isset($data['bypass_secret']) &&
-            $request->cookie(config('scheduled-maintenance.bypass_cookie_name')) &&
-            ScheduledMaintenanceModeBypassCookie::isValid(
-                $request->cookie(config('scheduled-maintenance.bypass_cookie_name')),
-                $data['bypass_secret']
-            );
+        if (! $bypassSecret) {
+            return false;
+        }
+
+        $cookie = $request->cookie(config('scheduled-maintenance.bypass_cookie_name'));
+
+        if (! $cookie) {
+            return false;
+        }
+
+        return ScheduledMaintenanceModeBypassCookie::isValid($cookie, $bypassSecret);
+    }
+
+    protected function isExcepted(Request $request): bool
+    {
+        foreach (config('scheduled-maintenance.except', []) as $except) {
+            if ($request->is($except)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

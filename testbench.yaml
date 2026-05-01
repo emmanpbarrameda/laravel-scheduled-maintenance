@@ -1,2 +1,2 @@
 providers:
-  - Churchportal\ScheduledMaintenance\ScheduledMaintenanceServiceProvider
+  - Emmanpbarrameda\ScheduledMaintenance\ScheduledMaintenanceServiceProvider

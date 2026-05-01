@@ -1,15 +1,16 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance;
+namespace Emmanpbarrameda\ScheduledMaintenance;
 
-use Churchportal\ScheduledMaintenance\Events\MaintenanceCancelled;
-use Churchportal\ScheduledMaintenance\Events\MaintenanceCompleted;
-use Churchportal\ScheduledMaintenance\Events\MaintenanceStarted;
+use Emmanpbarrameda\ScheduledMaintenance\Events\MaintenanceCancelled;
+use Emmanpbarrameda\ScheduledMaintenance\Events\MaintenanceCompleted;
+use Emmanpbarrameda\ScheduledMaintenance\Events\MaintenanceStarted;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
 class ScheduledMaintenance
 {
-    protected $model;
+    protected Model $model;
 
     public function __construct()
     {
@@ -23,13 +24,16 @@ class ScheduledMaintenance
 
     public function up(): void
     {
-        if ($this->isDown()) {
-            event(new MaintenanceCompleted($this->current()));
+        $current = $this->current();
 
-            $this->current()->update([
-                'is_active' => 0,
-                'deleted_at' => now(),
+        if ($current) {
+            event(new MaintenanceCompleted($current));
+
+            $current->update([
+                'is_active' => false,
             ]);
+
+            $current->delete();
         }
     }
 
@@ -50,7 +54,7 @@ class ScheduledMaintenance
         }
 
         $model->update([
-            'is_active' => 1,
+            'is_active' => true,
         ]);
 
         event(new MaintenanceStarted($model, ! $model->wasRecentlyCreated));
@@ -80,7 +84,7 @@ class ScheduledMaintenance
 
     public function current()
     {
-        return $this->model->where('is_active', 1)->first();
+        return $this->model->where('is_active', true)->first();
     }
 
     public function scheduled()
@@ -90,7 +94,7 @@ class ScheduledMaintenance
 
     public function next()
     {
-        return $this->model->where('is_active', 0)->where('starts_at', '>=', now())->orderBy('id')->first();
+        return $this->model->where('is_active', false)->where('starts_at', '>=', now())->orderBy('id')->first();
     }
 
     public function notice()
@@ -98,7 +102,7 @@ class ScheduledMaintenance
         return $this->model->where('starts_at', '>=', now())->where('display_notice_at', '<=', now())->orderBy('id')->first();
     }
 
-    public function inBypassMode()
+    public function inBypassMode(): bool
     {
         return $this->isDown() && request()->cookies->has(config('scheduled-maintenance.bypass_cookie_name'));
     }

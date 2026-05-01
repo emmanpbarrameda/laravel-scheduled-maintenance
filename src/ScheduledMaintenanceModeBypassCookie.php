@@ -1,6 +1,6 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance;
+namespace Emmanpbarrameda\ScheduledMaintenance;
 
 use Illuminate\Support\Carbon;
 use Symfony\Component\HttpFoundation\Cookie;

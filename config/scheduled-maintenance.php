@@ -10,7 +10,7 @@ return [
     */
 
     'table_name' => 'scheduled_maintenance',
-    'model' => \Churchportal\ScheduledMaintenance\Models\ScheduledMaintenanceModel::class,
+    'model' => \Emmanpbarrameda\ScheduledMaintenance\Models\ScheduledMaintenanceModel::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ return [
     | recommended that you customize this cookie name to your env or app name
     */
 
-    'bypass_cookie_name' => 'laravel_maintenance',
+    'bypass_cookie_name' => env('SCHEDULED_MAINTENANCE_BYPASS_COOKIE', 'scheduled_maintenance_bypass'),
 
     /*
     |--------------------------------------------------------------------------

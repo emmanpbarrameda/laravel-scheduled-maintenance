@@ -1,16 +1,16 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance;
+namespace Emmanpbarrameda\ScheduledMaintenance;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Churchportal\ScheduledMaintenance\ScheduledMaintenance
+ * @see \Emmanpbarrameda\ScheduledMaintenance\ScheduledMaintenance
  */
 class ScheduledMaintenanceFacade extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
-        return 'laravel-scheduled-maintenance';
+        return 'maintenance';
     }
 }

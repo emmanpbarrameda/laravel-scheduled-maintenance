@@ -4,13 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScheduledMaintenanceTable extends Migration
+return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
-        Schema::create(config('scheduled-maintenance.table_name'), function (Blueprint $table) {
+        Schema::create(config('scheduled-maintenance.table_name', 'scheduled_maintenance'), function (Blueprint $table): void {
             $table->id();
-            $table->uuid('uuid');
+            $table->uuid('uuid')->unique();
 
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
@@ -21,15 +21,18 @@ class CreateScheduledMaintenanceTable extends Migration
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
 
-            $table->boolean('is_active')->default(0);
+            $table->boolean('is_active')->default(false)->index();
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('starts_at');
+            $table->index('display_notice_at');
         });
     }
 
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists(config('scheduled-maintenance.table_name'));
+        Schema::dropIfExists(config('scheduled-maintenance.table_name', 'scheduled_maintenance'));
     }
 };

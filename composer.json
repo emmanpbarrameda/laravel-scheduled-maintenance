@@ -1,9 +1,11 @@
 {
   "name": "emmanpbarrameda/laravel-scheduled-maintenance",
-  "description": "Fork of churchportal/laravel-scheduled-maintenance updated for Laravel 8/9/10/11/12 and PHP 8.0+.",
+  "description": "Modern Laravel scheduled maintenance windows with notices, bypass mode, redirects, and custom maintenance responses.",
   "keywords": [
     "scheduled-maintenance",
     "laravel",
+    "laravel-scheduled-maintenance",
+    "laravel-maintenance",
     "maintenance-mode"
   ],
   "homepage": "https://github.com/emmanpbarrameda/laravel-scheduled-maintenance",
@@ -16,51 +18,56 @@
     },
     {
       "name": "Emman P. Barrameda",
-      "role": "Maintainer (Laravel 8–12 fork)"
+      "role": "Maintainer"
     }
   ],
   "require": {
-    "php": "^8.0",
-    "illuminate/contracts": "^8.37|^9.0|^10.0|^11.0|^12.0",
-    "spatie/laravel-package-tools": "^1.4.3|^1.16|^1.92"
+    "php": "^8.1",
+    "illuminate/contracts": "^10.0|^11.0|^12.0|^13.0",
+    "illuminate/database": "^10.0|^11.0|^12.0|^13.0",
+    "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+    "spatie/laravel-package-tools": "^1.16"
   },
   "require-dev": {
-    "brianium/paratest": "^6.2",
-    "nunomaduro/collision": "^5.3|^6.0|^7.0",
-    "orchestra/testbench": "^6.15|^7.0|^8.0|^9.0|^10.0",
-    "phpunit/phpunit": "^9.3|^10.0|^11.0",
-    "spatie/laravel-ray": "^1.9",
-    "vimeo/psalm": "^4.4"
+    "larastan/larastan": "^3.0",
+    "nunomaduro/collision": "^7.0|^8.0|^9.0",
+    "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
+    "pestphp/pest": "^2.0|^3.0",
+    "pestphp/pest-plugin-laravel": "^2.0|^3.0",
+    "phpunit/phpunit": "^10.0|^11.0|^12.0"
   },
   "autoload": {
     "psr-4": {
-      "Churchportal\\ScheduledMaintenance\\": "src/",
-      "Churchportal\\ScheduledMaintenance\\Database\\Factories\\": "database/factories/"
+      "Emmanpbarrameda\\ScheduledMaintenance\\": "src/",
+      "Emmanpbarrameda\\ScheduledMaintenance\\Database\\Factories\\": "database/factories/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Churchportal\\ScheduledMaintenance\\Tests\\": "tests/"
+      "Emmanpbarrameda\\ScheduledMaintenance\\Tests\\": "tests/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Churchportal\\ScheduledMaintenance\\ScheduledMaintenanceServiceProvider"
+        "Emmanpbarrameda\\ScheduledMaintenance\\ScheduledMaintenanceServiceProvider"
       ],
       "aliases": {
-        "ScheduledMaintenance": "Churchportal\\ScheduledMaintenance\\ScheduledMaintenanceFacade"
+        "ScheduledMaintenance": "Emmanpbarrameda\\ScheduledMaintenance\\ScheduledMaintenanceFacade"
       }
     }
   },
   "scripts": {
-    "psalm": "vendor/bin/psalm",
-    "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    "analyse": "vendor/bin/phpstan analyse",
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/pest --coverage"
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true
 }

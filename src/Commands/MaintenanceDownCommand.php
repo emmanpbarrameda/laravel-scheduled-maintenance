@@ -1,6 +1,6 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance\Commands;
+namespace Emmanpbarrameda\ScheduledMaintenance\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Console\ConfirmableTrait;

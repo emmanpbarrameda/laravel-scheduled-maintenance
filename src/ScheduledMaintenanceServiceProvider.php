@@ -1,12 +1,12 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance;
+namespace Emmanpbarrameda\ScheduledMaintenance;
 
-use Churchportal\ScheduledMaintenance\Commands\MaintenanceCancelCommand;
-use Churchportal\ScheduledMaintenance\Commands\MaintenanceDownCommand;
-use Churchportal\ScheduledMaintenance\Commands\MaintenanceUpcomingCommand;
-use Churchportal\ScheduledMaintenance\Commands\MaintenanceUpCommand;
-use Churchportal\ScheduledMaintenance\Commands\ScheduleMaintenanceCommand;
+use Emmanpbarrameda\ScheduledMaintenance\Commands\MaintenanceCancelCommand;
+use Emmanpbarrameda\ScheduledMaintenance\Commands\MaintenanceDownCommand;
+use Emmanpbarrameda\ScheduledMaintenance\Commands\MaintenanceUpcomingCommand;
+use Emmanpbarrameda\ScheduledMaintenance\Commands\MaintenanceUpCommand;
+use Emmanpbarrameda\ScheduledMaintenance\Commands\ScheduleMaintenanceCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

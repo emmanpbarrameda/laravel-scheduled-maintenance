@@ -1,6 +1,6 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance\Database\Factories;
+namespace Emmanpbarrameda\ScheduledMaintenance\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

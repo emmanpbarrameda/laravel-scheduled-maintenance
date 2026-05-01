@@ -1,8 +1,8 @@
 <?php
 
-namespace Churchportal\ScheduledMaintenance\Events;
+namespace Emmanpbarrameda\ScheduledMaintenance\Events;
 
-use Churchportal\ScheduledMaintenance\Models\ScheduledMaintenanceModel;
+use Emmanpbarrameda\ScheduledMaintenance\Models\ScheduledMaintenanceModel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
