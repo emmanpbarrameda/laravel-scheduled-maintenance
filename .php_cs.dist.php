@@ -2,8 +2,8 @@
 
 $finder = Symfony\Component\Finder\Finder::create()
     ->in([
-        __DIR__ . '/src',
-        __DIR__ . '/tests',
+        __DIR__.'/src',
+        __DIR__.'/tests',
     ])
     ->name('*.php')
     ->notName('*.blade.php')
@@ -11,12 +11,12 @@ $finder = Symfony\Component\Finder\Finder::create()
     ->ignoreVCS(true);
 
 return (new PhpCsFixer\Config())
+    ->setRiskyAllowed(true)
     ->setRules([
-        '@PSR2' => true,
+        '@PSR12' => true,
         'array_syntax' => ['syntax' => 'short'],
         'ordered_imports' => ['sort_algorithm' => 'alpha'],
         'no_unused_imports' => true,
-        'not_operator_with_successor_space' => true,
         'trailing_comma_in_multiline' => true,
         'phpdoc_scalar' => true,
         'unary_operator_spaces' => true,
@@ -30,10 +30,6 @@ return (new PhpCsFixer\Config())
             'elements' => [
                 'method' => 'one',
             ],
-        ],
-        'method_argument_space' => [
-            'on_multiline' => 'ensure_fully_multiline',
-            'keep_multiple_spaces_after_comma' => true,
         ],
         'single_trait_insert_per_statement' => true,
     ])
