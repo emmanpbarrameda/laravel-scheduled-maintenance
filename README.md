@@ -1,4 +1,8 @@
 # Laravel Scheduled Maintenance
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/emmanpbarrameda/laravel-scheduled-maintenance.svg?style=flat-square)](https://packagist.org/packages/emmanpbarrameda/laravel-scheduled-maintenance)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/emmanpbarrameda/laravel-scheduled-maintenance/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/emmanpbarrameda/laravel-scheduled-maintenance/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/emmanpbarrameda/laravel-scheduled-maintenance.svg?style=flat-square)](https://packagist.org/packages/emmanpbarrameda/laravel-scheduled-maintenance)
+[![License](https://img.shields.io/packagist/l/emmanpbarrameda/laravel-scheduled-maintenance.svg?style=flat-square)](https://packagist.org/packages/emmanpbarrameda/laravel-scheduled-maintenance)
 
 A modern Laravel package for scheduling app maintenance, showing upcoming downtime notices, and customizing the maintenance page. Supports Laravel 10, 11, and 12 with PHP 8.1 and newer.
 <img width="1318" height="569" alt="image" src="https://github.com/user-attachments/assets/c33b57e3-8876-44a0-bca4-aeff3675381b" />
