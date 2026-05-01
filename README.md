@@ -1,6 +1,7 @@
 # Laravel Scheduled Maintenance
 
 A modern Laravel package for scheduling app maintenance, showing upcoming downtime notices, and customizing the maintenance page. Supports Laravel 10, 11, and 12 with PHP 8.1 and newer.
+<img width="1318" height="569" alt="image" src="https://github.com/user-attachments/assets/c33b57e3-8876-44a0-bca4-aeff3675381b" />
 
 > A Fork of [laravel-scheduled-maintenance by James Burrow](https://github.com/churchportal/laravel-scheduled-maintenance)
 
@@ -84,6 +85,7 @@ Quickly schedule a maintenance:
 ```bash
 php artisan maintenance:schedule --title="Server Update" --starts-at="2026-05-08 21:00:00" --ends-at="2026-05-08 23:00:00" --notify-at="2026-05-08 20:00:00"
 ```
+<img width="1467" height="403" alt="image" src="https://github.com/user-attachments/assets/4cefdad5-9c18-486c-91ad-a523a890c87b" />
 
 This creates a maintenance window titled **Server Update**, starts maintenance at **2026-05-08 9:00 PM**, ends it at **11:00 PM**, and shows users an upcoming maintenance notice starting at **8:00 PM**.
 
@@ -136,6 +138,7 @@ Simply navigate on browser like:
 ```url
 http://127.0.0.1:8000/random-secret-123
 ```
+<img width="1318" height="223" alt="image" src="https://github.com/user-attachments/assets/37ea32c6-5aaf-455f-b945-02e06ba2ecad" />
 
 > Bypass cookie is valid 12 hours. Only users with the bypass cookie can access the app while it is down.
 
@@ -149,6 +152,7 @@ Scheduled maintenance automatically dispatches a Laravel queued job that activat
 ```bash
 php artisan queue:work
 ```
+<img width="1920" height="283" alt="image" src="https://github.com/user-attachments/assets/a7839bd7-b2ca-4748-839e-3ad7d52d1ea5" />
 
 > **Note:** Make sure your `QUEUE_CONNECTION` in `.env` is **not** set to `sync`, otherwise delayed jobs will fire immediately instead of at the scheduled time.
 > ```env
@@ -189,11 +193,13 @@ The package ships with two ready-to-use Blade components. Add them to your <b>ma
 <x-scheduled-maintenance::notice-banner />
 ```
 
-### Bypass Banner
-Shows a fixed top banner when a developer is bypassing maintenance mode. Styled with inline CSS - no Tailwind required.
-
 ### Notice Banner
 Shows a warning banner when an upcoming maintenance window's `display_notice_at` time has passed, notifying users before the maintenance begins.
+<img width="1318" height="200" alt="image" src="https://github.com/user-attachments/assets/b79279fe-a8dd-4b22-9e80-97ceef2d56bb" />
+
+### Bypass Banner
+Shows a fixed top banner when a developer is bypassing maintenance mode. Styled with inline CSS - no Tailwind required.
+<img width="1318" height="223" alt="image" src="https://github.com/user-attachments/assets/f211dd5b-f385-4b89-bb03-c79790fc2eea" />
 
 > After running `vendor:publish`, you can customize both banners at:
 > `resources/views/vendor/scheduled-maintenance/components/`
@@ -306,6 +312,13 @@ The default view includes a two-column layout with a countdown timer and an illu
 | `MaintenanceCancelled` | After `app('maintenance')->delete($id)` | - |
 
 All events expose a public `$scheduledMaintenance` model property.
+
+---
+
+# Screenshots
+<img width="1318" height="200" alt="image" src="https://github.com/user-attachments/assets/7e1ab202-559e-4936-aa91-f1cc3fc74b6c" />
+<img width="1318" height="569" alt="image" src="https://github.com/user-attachments/assets/5ae9b6e7-2359-4d02-9340-6ce8bcc02f7d" />
+<img width="1318" height="223" alt="image" src="https://github.com/user-attachments/assets/6d1bac5d-c1f8-4420-b03c-5f4125cc0157" />
 
 ---
 
